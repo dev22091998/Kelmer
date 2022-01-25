@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Optimal Web : Contact Form With JS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- contact1 -->
+  <section class="w3l-simple-contact-form1">
+    <div class="contact-form section-gap">
+      <div class="wrapper">
+        <div class="text-center">
+        <h1 style="font-size: 40px; " >Contact Us</h1>
+      </div>
+        <div class="contact-form" style="max-width: 450px; margin: 0 auto;">
+          <div class="form-mid">
+            <form class="contact-form" method="POST">
+              <label for="">Name</label>
+             <input type="text" class="name" placeholder="name" required />
+             <label for="">Email</label>
+             <input type="text" class="email" placeholder="email" required />
+             <label for="">Message</label><br>
+              <textarea name="" class="message" id="Message" placeholder="Message"
+                required=""></textarea>
+              <button type="submit" >Send Message</button>
+              <!-- <input type="button" class="btn btn-contact" onclick="sendmail();"  value="Send Message"> -->
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /contact1 -->
+  
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase.js"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+ 
+<script>  
+
+  // Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "AIzaSyB6Izsku_qLcnr9lc0Ivj5eejB7-5FCaRE",
+  authDomain: "test-form-d3492.firebaseapp.com",
+  databaseURL: "https://test-form-d3492.firebaseio.com",
+  projectId: "test-form-d3492",
+  storageBucket: "test-form-d3492.appspot.com",
+  messagingSenderId: "222398070278",
+  appId: "1:222398070278:web:bf51f5c8a26dcfff9ecd87",
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Refernece contactInfo collections
+let contactInfo = firebase.database().ref("infos");
+
+// Listen for a submit
+document.querySelector(".contact-form").addEventListener("submit", submitForm);
+
+function submitForm(e) {
+  e.preventDefault();
+
+  //   Get input Values
+  let name = document.querySelector(".name").value;
+  let email = document.querySelector(".email").value;
+  let message = document.querySelector(".message").value;
+  console.log(name, email, message);
+
+  saveContactInfo(name, email, message);
+
+  document.querySelector(".contact-form").reset();
+}
+
+// Save infos to Firebase
+function saveContactInfo(name, email, message) {
+  let newContactInfo = contactInfo.push();
+
+  newContactInfo.set({
+    name: name,
+    email: email,
+    message: message,
+  });
+}
+
+    </script>
+ </script>
+
+</body>
+</html>
